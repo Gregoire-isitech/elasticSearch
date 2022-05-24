@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!--
+  This example requires Tailwind CSS v3.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+    <div class="relative z-10" role="dialog" aria-modal="true">
+        <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
+            <!--
+        Command palette, show/hide based on modal state.
+  
+        Entering: "ease-out duration-300"
+          From: "opacity-0 scale-95"
+          To: "opacity-100 scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 scale-100"
+          To: "opacity-0 scale-95"
+      -->
+            <div
+                class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+                <div class="relative">
+                    <!-- Heroicon name: solid/search -->
+                    <svg class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <input type="text" id="search"
+                        class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 outline:none sm:text-sm"
+                        placeholder="Search..." role="combobox" aria-expanded="false" aria-controls="options">
+                </div>
+
+                <!-- Results, show/hide based on command palette state. -->
+                <ul id="result_ul" class="hidden max-h-80 scroll-py-10 scroll-pb-2 space-y-4 overflow-y-auto p-4 pb-2"
+                    id="options" role="listbox">
+                </ul>
+
+                <!-- Help, show/hide based on command palette state. -->
+                <!-- <div class="py-14 px-6 text-center text-sm sm:px-14">
+          <svg class="mx-auto h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <p class="mt-4 font-semibold text-gray-900">Help with searching</p>
+          <p class="mt-2 text-gray-500">Use this tool to quickly search for users and projects across our entire platform. You can also use the search modifiers found in the footer below to limit the results to just users or projects.</p>
+        </div> -->
+
+                <!-- Empty state, show/hide based on command palette state. -->
+                <div id="no_result" class="hidden py-14 px-6 text-center text-sm sm:px-14">
+                    <svg class="mx-auto h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p class="mt-4 font-semibold text-gray-900">No results found</p>
+                    <p class="mt-2 text-gray-500">We couldn’t find anything with that term. Please try again.</p>
+                </div>
+
+                <div class="flex flex-wrap items-center bg-gray-50 py-2.5 px-4 text-xs text-gray-700">Type <kbd
+                        class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">#</kbd>
+                    <span class="sm:hidden">for projects,</span><span class="hidden sm:inline">to access
+                        projects,</span> <kbd
+                        class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">&gt;</kbd>
+                    for users, and <kbd
+                        class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">?</kbd>
+                    for help.</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var commetuveux = "toto"
+
+    function debounce(fn, delay) {
+        var timer = null;
+        return function () {
+            var context = this,
+                args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+    const noResult = document.getElementById("no_result")
+    const listElement = document.getElementById("result_ul")
+    const element = document.getElementById("search")
+    element.addEventListener("keyup", debounce((e) => resultSearch(e), 500));
+
+    const resultSearch = (async (e) => {
+        var value = e.target.value.replace("#","%23")
+        listElement.innerHTML = ""
+        if (!value){
+            if (!noResult.classList.contains("hidden"))
+                noResult.classList.add("hidden")
+            return
+        }
+        
+        const res = await fetch("http://localhost:3000/search/" + value)
+        const data = await res.json()
+        const listData = data.hits.hits
+
+        if (listData.length == 0) {
+            noResult.classList.remove("hidden")
+            if (listElement.classList.contains("hidden"))
+                listElement.classList.add("hidden")
+            return
+        }
+        else {
+            listElement.classList.remove("hidden")
+            if (!noResult.classList.contains("hidden"))
+                noResult.classList.add("hidden")
+        }
+
+        for (i = 0; i < listData.length; ++i) {
+            // Create an item for each one
+            listItem = document.createElement('li');
+
+            // Add the item text
+            listItem.innerHTML = listData[i]._source.Nom;
+
+            // Add listItem to the listElement
+            listElement.appendChild(listItem);
+        }
+    })
+</script>
